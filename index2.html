@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wyr.es</title>
+    <style>
+        /* Reset and Base Styling */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif; /* Modern font */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9; /* Light modern background */
+            color: #333;
+        }
+
+        /* Centered Container */
+        .search-container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Search Bar Styling */
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: none; /* Accent color for focus */
+            box-shadow: 0 4px 10px rgba(127, 90, 240, 0.2);
+        }
+
+        /* Hide Submit Button */
+        button {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1>wyr.es</h1>
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="" required autofocus>
+            <button type="submit">Go</button>
+        </form>
+    </div>
+
+    <script>
+        // Add event listener for the form
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent page reload
+            const query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                // Redirect to the formatted URL
+                window.location.href = `https://wyr.es/${encodeURIComponent(query)}`;
+            }
+        });
+    </script>
+</body>
+</html>
