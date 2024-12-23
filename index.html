@@ -142,15 +142,20 @@
             vertical-align: middle; /* Aligns image with text */
             margin-right: -0.1em; /* Spacing between image and text */
         }
+        #brand {
+      text-decoration: none;
+      color: black;
+    }
     </style>
 
 </head>
 <body>
     <div class="search-container">
-        <h1>
+        
             <!-- <img src="https://welcome.wyr.es/apple-touch-icon.png" alt="Logo" class="logo">  -->
-            wyr.es/
-        </h1>
+            <a href="javascript:void(0);" id="brand" onclick="clearAndFocusSearch()"><h1>wyr.es/</h1></a>
+            
+        
       
         <div class="search-input-wrapper">
             <input type="text" id="searchInput" placeholder="enter keyword" required autofocus>
@@ -232,6 +237,12 @@
         });
 
         window.addEventListener('load', updateLinkUI);
+
+        function clearAndFocusSearch() {
+      const searchBar = document.getElementById('searchInput');
+      searchBar.value = '';
+      searchBar.focus();
+    }
     </script>
 </body>
 </html>
