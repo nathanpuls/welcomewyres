@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wyr.es</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <style>
+        /* Reset and Base Styling */
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --main-color: #303030;
+            --main-hover-color: var(--main-color); /* Adjusted hover color */
+            --text-color: #333;
+            --background-color: white;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding-top: 5%;
+        }
+
+        a {
+            color: var(--main-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .search-container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            margin-top: 15%;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        #searchInput {
+            width: 100%;
+            height: 100px;
+            padding: 12px 35px 12px 40px;
+            font-size: 2rem;
+            border: 2px solid var(--main-color);
+            border-radius: 50px;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+
+        #searchInput:focus {
+            border-color: var(--main-color);
+            box-shadow: 0 4px 10px rgba(251, 195, 68, 0.2);
+        }
+
+        .clear-icon {
+            position: absolute;
+            right: 30px;
+            top: 35%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.7rem;
+            color: #757575;
+            cursor: pointer;
+            outline: none;
+            display: none;
+            padding: 0;
+        }
+
+        .clear-icon:hover {
+            color: #757575;
+        }
+
+        .description {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        #generatedLink {
+            font-size: 0rem;
+            margin-top: 10px;
+        }
+
+        .copy-button {
+            background-color: var(--main-color);
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px auto 0;
+            display: block;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .copy-button:hover {
+            background-color: var(--main-hover-color);
+        }
+
+        .footer {
+            font-size: 12px;
+            color: #757575;
+            margin-top: auto;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .logo {
+            width: auto; /* Maintain aspect ratio */
+            height: 0.7em; /* Matches text height */
+            vertical-align: middle; /* Aligns image with text */
+            margin-right: -0.1em; /* Spacing between image and text */
+        }
+    </style>
+
+</head>
+<body>
+    <div class="search-container">
+        <h1>
+            <!-- <img src="https://welcome.wyr.es/apple-touch-icon.png" alt="Logo" class="logo">  -->
+            wyr.es/
+        </h1>
+      
+        <div class="search-input-wrapper">
+            <input type="text" id="searchInput" placeholder="enter keyword" required autofocus>
+            <button class="clear-icon" id="clearIcon" title="Clear">&#x2715;</button>
+        </div>
+        <br>
+        <div id="generatedLink" style="display: none;">
+            <a id="linkShortUrlAnchor" href="#"><span id="linkShortUrl"></span></a>
+        </div>
+        <p class="description" id="description"></p>
+        <br>
+        <button class="copy-button" id="copyButton" style="display: none;">Copy Link</button>
+    </div>
+    <p class="footer">
+        Designed by <a href="https://nathanpuls.com">Nathan Puls</a>.
+    </p>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const clearIcon = document.getElementById('clearIcon');
+        const generatedLink = document.getElementById('generatedLink');
+        const linkShortUrl = document.getElementById('linkShortUrl');
+        const linkShortUrlAnchor = document.getElementById('linkShortUrlAnchor');
+        const copyButton = document.getElementById('copyButton');
+        const description = document.getElementById('description');
+
+        function updateLinkUI() {
+            const query = searchInput.value.trim();
+            clearIcon.style.display = query ? 'block' : 'none';
+            if (query) {
+                const lowercaseQuery = query.toLowerCase();
+                const urlFriendlyQuery = lowercaseQuery.replace(/\s+/g, '+');
+                const fullLink = `https://wyr.es/${urlFriendlyQuery}`;
+                const shortLink = `wyr.es/${urlFriendlyQuery}`;
+                linkShortUrl.textContent = shortLink;
+                linkShortUrlAnchor.href = fullLink;
+                generatedLink.style.display = 'block';
+                copyButton.style.display = 'block';
+                description.style.display = 'none';
+            } else {
+                generatedLink.style.display = 'none';
+                copyButton.style.display = 'none';
+                description.style.display = 'block';
+            }
+        }
+
+        searchInput.addEventListener('input', updateLinkUI);
+        clearIcon.addEventListener('click', () => {
+            searchInput.value = '';
+            updateLinkUI();
+            searchInput.focus();
+        });
+
+        copyButton.addEventListener('click', () => {
+            const shortLink = linkShortUrlAnchor.href.replace('https://', '');
+            navigator.clipboard.writeText(shortLink).then(() => {
+                copyButton.textContent = 'Copied!';
+                setTimeout(() => (copyButton.textContent = 'Copy Link'), 2000);
+            });
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    const lowercaseQuery = query.toLowerCase();
+                    const urlFriendlyQuery = lowercaseQuery.replace(/\s+/g, '+');
+                    const fullLink = `https://wyr.es/${urlFriendlyQuery}`;
+                    window.location.href = fullLink;
+                }
+            }
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || performance.getEntriesByType('navigation')[0].type === 'back_forward') {
+                updateLinkUI();
+                searchInput.focus();
+            }
+        });
+
+        window.addEventListener('load', updateLinkUI);
+    </script>
+</body>
+</html>
