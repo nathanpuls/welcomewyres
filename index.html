@@ -265,26 +265,29 @@ function fallbackCopyText(text) {
       searchBar.value = '';
       searchBar.focus();
     }
-    // Function to check if the app is running in standalone mode
-function isStandaloneMode() {
-    return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-}
-
-// Function to focus on the input field
+    // Function to focus on the input field
 function focusOnInput() {
     const inputField = document.getElementById("searchInput");
     if (inputField) {
-        inputField.focus();
+        // Use setTimeout to delay focus after the page load
+        setTimeout(() => inputField.focus(), 200);
     }
 }
 
 // Add event listener for DOMContentLoaded
 document.addEventListener("DOMContentLoaded", function () {
-    // Check if the app is running in standalone mode
-    if (isStandaloneMode()) {
+    // Focus on the input when the page has finished loading
+    focusOnInput();
+});
+
+// Ensure focus on page refresh or back navigation
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted || performance.getEntriesByType('navigation')[0]?.type === 'back_forward') {
         focusOnInput();
     }
 });
+
+
 
 
 
