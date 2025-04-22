@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>wyr.es</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 5vw;
+      margin-left: 40px; /* Remove margin to align it properly with input */
+      padding: 0;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    input {
+      width: 80%;
+      font-size: 5vw;
+      border: none;
+      outline: none;
+      padding: 0 0px;
+      background: #111;
+      color: #fff;
+      text-align: left;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box; /* Ensures padding is included in width calculation */
+    }
+
+    /* Increase font size on smaller screens */
+    @media (max-width: 600px) {
+      input {
+        font-size: 8vw; /* Larger font size for mobile screens */
+      }
+      h1 {
+        font-size: 8vw; /* Increase font size for h1 on mobile screens */
+      }
+    }
+  </style>
+</head>
+<body>
+    <h1>wyr.es/</h1>
+  <input
+    type="text"
+    id="searchInput"
+    placeholder=""
+    autofocus
+    autocomplete="off"
+    inputmode="text"
+  />
+
+  <script>
+    const input = document.getElementById("searchInput");
+
+    // Focus the input when the user clicks anywhere on the page
+    document.body.addEventListener('click', function() {
+      input.focus();
+    });
+
+    // Redirect when the user presses Enter
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault(); // Prevent default behavior (no page reload)
+
+        const value = input.value.trim(); // Get the input value
+        if (value) {
+          // Redirect to the URL with the typed input
+          window.location.href = "http://wyr.es/" + encodeURIComponent(value);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
